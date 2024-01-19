@@ -1,0 +1,23 @@
+# File Structure
+
+- src
+  - main.cpp
+  - globals.cpp
+  - subsystems // Includes namespace subsystems
+    - kicker
+      - opcontrol.cpp
+      - auton.cpp
+    - chassis
+      - opcontrol.cpp
+      - auton.cpp
+    - intake
+      - opcontrol.cpp
+      - auton.cpp
+    - elevation
+      - opcontrol.cpp
+      - auton.cpp
+    - inputSystem
+      - opcontrol.cpp
+  - utils // Includes namespace utils
+    - utils.cpp
+  - 
