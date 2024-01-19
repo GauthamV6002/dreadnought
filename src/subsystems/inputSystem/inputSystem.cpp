@@ -1,4 +1,6 @@
+#include "inputSystem.hpp"
 #include "main.h"
+#include "pros/misc.h"
 
 namespace subsystems {
 
@@ -24,6 +26,10 @@ namespace subsystems {
 
     bool InputSystem::getKickerToggleNewPress() {
         return master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y);
+    }
+
+    bool InputSystem::getManualKickerPressed() {
+        return master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN);
     }
     
 

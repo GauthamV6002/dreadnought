@@ -42,9 +42,12 @@ namespace subsystems {
         PID::PID_System turnPID;
         PID::PID_System swingAnglePID;
 
-        // Joystick Curve Constants
+        // Drive Constants
         const double JOYSTICK_TURN_GAIN = 2.5;
         const int JOYSTICK_DEADZONE = 5;
+        const float TRACTION_TURN_MULTIPLIER = 1.75;
+
+        // 
 
         // Todo: Add Odom Object
 
@@ -52,7 +55,7 @@ namespace subsystems {
             Chassis(int frontLeftPort, int middleLeftPort, int backLeftPort, int frontRightPort, int middleRightPort, int backRightPort, int IMUFrontPort, int IMUBackPort);
 
             // Teleop
-            void arcade(bool joystickCurves, bool invertTurning);
+            void arcade(bool joystickCurves, bool invertTurning, bool singeStick);
             void curvature();
 
             // Utils

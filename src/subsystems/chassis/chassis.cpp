@@ -28,18 +28,23 @@ namespace subsystems {
         {}
 
     
-    void Chassis::arcade(bool joystickCurves = false, bool invertTurning = false) {
+    void Chassis::arcade(bool joystickCurves = false, bool invertTurning = false, bool singleStick = false) {
         int ithrottle = inputSystem.getChassisThrottle();
-        int iturn = inputSystem.getChassisTurnPower(false);
+        int iturn = inputSystem.getChassisTurnPower(singleStick);
         
         if(invertTurning) iturn *= -1; // Invert turning if activated
+        
+        // Check if driver is turning in place
+        bool turnInPlace = false;
+        if(abs(iturn) < JOYSTICK_DEADZONE && abs(ithrottle) > JOYSTICK_DEADZONE) turnInPlace = true;
 
         // Deadzones
         if(abs(ithrottle) < JOYSTICK_DEADZONE) ithrottle = 0;
         if(abs(iturn) < JOYSTICK_DEADZONE) iturn = 0;
 
+        // Remap turns with curves & non-in-place turns
         double turn = joystickCurves ? utils::exponentialInputRemap(iturn, JOYSTICK_TURN_GAIN) : iturn;
-        turn *= 1.75;
+        if(!turnInPlace) turn *= TRACTION_TURN_MULTIPLIER;
 
         leftMotors = ithrottle + turn;
         rightMotors = ithrottle - turn;

@@ -21,7 +21,7 @@ void opcontrol() {
 	
 	while (true) {
 		// Run Drive
-		subsystems::chassis.arcade(true, true);
+		subsystems::chassis.arcade(false, true, false);
 
 		// Run other Systems
 		subsystems::intake.runOpcontrol();

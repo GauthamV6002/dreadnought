@@ -20,6 +20,7 @@ namespace subsystems {
             // Kicker/Intake
             int getIntakeState(); // 1 is intake inwards, 0 is hold, -1 is intake outwards
             bool getKickerToggleNewPress();
+            bool getManualKickerPressed();
             
             // Pistons
             bool getFrontWingsPressed();
