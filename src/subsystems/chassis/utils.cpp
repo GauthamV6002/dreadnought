@@ -5,13 +5,42 @@ namespace subsystems {
         driveMotors.tare_position();
     }
 
+    void Chassis::resetIMUs() {
+        IMUFront.reset(false);
+        IMUBack.reset(false);
+    }
+
+    void Chassis::setBrakeMode(pros::motor_brake_mode_e_t brakeMode) {
+        driveMotors.set_brake_modes(brakeMode);
+    }
+
+
+    // Encoder Utils
+
     float Chassis::getAvgEncoderValue() {
         return (frontLeft.get_position() + middleLeft.get_position() + backLeft.get_position() + frontRight.get_position() + middleRight.get_position() + backRight.get_position()) / 6.0;
     }
 
+
+    // IMU Utils
+
     float Chassis::getAvgHeading() {
-        if(IMUFront.get_rotation() == PROS_ERR_F) return IMUFront.get_rotation();
-        if(IMUBack.get_rotation() == PROS_ERR_F) return IMUBack.get_rotation();
+        if(IMUFront.get_rotation() == PROS_ERR_F) return IMUBack.get_rotation();
+        if(IMUBack.get_rotation() == PROS_ERR_F) return IMUFront.get_rotation();
         else return ((IMUBack.get_rotation() + IMUFront.get_rotation()) / 2);
+    }
+
+    // Blocks thread until the IMUs can return a value
+    double Chassis::requestAvgIMUHeading() {
+        while (true) {
+            double rotationFront = IMUFront.get_rotation();
+            double rotationBack = IMUBack.get_rotation();
+
+            if (rotationFront != PROS_ERR_F && rotationBack != PROS_ERR_F) return (rotationFront + rotationBack) / 2;
+            else if (rotationFront == PROS_ERR_F && rotationBack != PROS_ERR_F) return (rotationBack);
+            else if (rotationBack == PROS_ERR_F && rotationFront != PROS_ERR_F) return (rotationFront);
+            else pros::delay(50);
+            pros::screen::print(TEXT_MEDIUM, 5, "what the CRAP"); 
+        }
     }
 }

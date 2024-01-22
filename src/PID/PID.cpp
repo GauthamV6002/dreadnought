@@ -58,10 +58,6 @@ float PID::PID_System::compute(float error){
     }
 
     timeSpentRunning += loopTime;
-
-        //   pros::screen::print(pros::E_TEXT_MEDIUM, 8, "timeSpentSettled: %f", timeSpentSettled); 
-        //   pros::screen::print(pros::E_TEXT_MEDIUM, 9, "run time: %f", timeSpentRunning); 
-
     return output;
 }
 

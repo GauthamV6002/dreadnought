@@ -1,28 +1,44 @@
-// #include "main.h"
+#include "main.h"
+#include "subsystems/chassis/chassis.hpp"
 
-// namespace subsystems {
+namespace subsystems {
     
-//     void Chassis::swingDistance(int targetDistance, E_SWING_TYPE swingType, double maxPower, double settleTime, double settleRange, double timeout)
-
-//         turnPID.setStopConditionConstants(
-//             (settleRange != -1) ? settleRange : turnPID.defaultMinSettleError, 
-//             (settleTime != -1) ? settleTime : turnPID.defaultMinSettleTime, 
-//             (timeout != -1) ? timeout : turnPID.defaultTimeout
-//         );
-
-//         while(!(this->turnPID.isSettled())) {
-//             float error = targetHeading - this->getAvgHeading();
-//             float power = this->turnPID.compute(error);
-
-//             leftMotors = (fabs(power) > fabs(maxPower)) ? (fabs(maxPower) * utils::sign(power)) : power;
-//             rightMotors = (fabs(power) > fabs(maxPower)) ? (fabs(maxPower) * utils::sign(power)) : power;
-
-//             pros::delay(10);
-//         }
+    void Chassis::swingToHeading(double targetHeading, E_SWING_TYPE swingType, double maxPower, double settleTime, double settleRange, double timeout) {
 
 
-//         driveMotors.brake();
-//         this->turnPID.resetSystem();
-//     }
+        swingAnglePID.setStopConditionConstants(
+            (settleRange != -1) ? settleRange : swingAnglePID.defaultMinSettleError, 
+            (settleTime != -1) ? settleTime : swingAnglePID.defaultMinSettleTime, 
+            (timeout != -1) ? timeout : swingAnglePID.defaultTimeout
+        );
+        
+        /*
+            INCREASE && FWD => LEFT(+)
+            INCREASE && BWD => RIGHT(-)
+            DECREASE && FWD => RIGHT(+)
+            DECREASE && BWD => LEFT(-)
+        */
+        bool headingIncreasing = (this->getAvgHeading() < targetHeading);
+        pros::screen::print(TEXT_MEDIUM, 1, "headingIncreasing: %d", headingIncreasing); 
 
-// }
+        while(!(this->swingAnglePID.isSettled())) {
+            float error = targetHeading - this->getAvgHeading(); // TODO: Switch to requestHeading
+            float power = this->swingAnglePID.compute(error);
+
+            if(swingType == SWING_LEFT) {
+                leftMotors = power; // TODO: Add max power
+                rightMotors.brake();
+            }
+            else if (swingType == SWING_RIGHT) {
+                rightMotors = -power;
+                leftMotors.brake();
+            }
+
+            pros::delay(10);
+        }
+
+        driveMotors.brake();
+        // pros::delay(20);
+        this->swingAnglePID.resetSystem();
+    }
+}

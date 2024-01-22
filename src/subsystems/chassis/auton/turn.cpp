@@ -2,7 +2,7 @@
 
 namespace subsystems {
     
-    void Chassis::turnToHeading(double targetHeading, double maxPower, double settleTime = -1, double settleRange = -1, double timeout = -1) {
+    void Chassis::turnToHeading(double targetHeading, double maxPower, double settleTime, double settleRange, double timeout) {
 
         turnPID.setStopConditionConstants(
             (settleRange != -1) ? settleRange : turnPID.defaultMinSettleError, 
@@ -11,15 +11,14 @@ namespace subsystems {
         );
 
         while(!(this->turnPID.isSettled())) {
-            float error = targetHeading - this->getAvgHeading();
+            float error = targetHeading - this->getAvgHeading(); // TODO: Switch to requestHeading
             float power = this->turnPID.compute(error);
 
             leftMotors = (fabs(power) > fabs(maxPower)) ? (fabs(maxPower) * utils::sign(power)) : power;
-            rightMotors = (fabs(power) > fabs(maxPower)) ? (fabs(maxPower) * utils::sign(power)) : power;
+            rightMotors = (fabs(power) > fabs(maxPower)) ? -(fabs(maxPower) * utils::sign(power)) : -power;
 
             pros::delay(10);
         }
-
 
         driveMotors.brake();
         this->turnPID.resetSystem();

@@ -35,11 +35,11 @@ namespace subsystems {
 
     // Pistons
     bool InputSystem::getFrontWingsPressed() {
-        return master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1);
+        return master.get_digital(pros::E_CONTROLLER_DIGITAL_L1);
     }
 
     bool InputSystem::getBackWingsPressed() {
-        return master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1);
+        return master.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
     }
 
     bool InputSystem::getElevationNewPress() {

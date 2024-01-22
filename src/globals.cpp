@@ -7,8 +7,8 @@ namespace subsystems {
     Kicker kicker(10, 2, 5, 19, 5700);
     Intake intake(9, 0, 20);
 
-    Wings wings('A', 'B');
-    Elevation elevation('H');
+    Wings wings('B', 'C');
+    Elevation elevation('A');
 
     Chassis chassis(
         18, 

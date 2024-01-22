@@ -1,6 +1,6 @@
 #include "main.h"
 
-void subsystems::Chassis::moveLateral(int targetDistance, double maxPower = 127, double settleTime = -1, double settleRange = -1, double timeout = -1) {
+void subsystems::Chassis::moveLateral(int targetDistance, double maxPower, double settleTime, double settleRange, double timeout) {
 
     // Reset positions for simpler error calculation
     chassis.tarePosition();
