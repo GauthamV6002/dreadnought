@@ -12,6 +12,9 @@ namespace subsystems {
         public:
             InputSystem(pros::controller_id_e_t controllerID);
 
+            // Controller Vibration
+            void rumbleController(const char *rumble_pattern);
+
             // Chassis
             int getChassisThrottle();
             int getChassisTurnPower(bool singleStick);

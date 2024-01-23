@@ -17,9 +17,11 @@ namespace subsystems {
 
     class Chassis {
 
+        public:
+
         // Size Constants
-        float DRIVE_WIDTH = 15.5;
-        float DRIVE_LENGTH = 16.5;
+        float DRIVE_WIDTH = 11.5;
+        float DRIVE_LENGTH = 12.5;
 
         // Drive
         pros::Motor frontLeft;
@@ -42,12 +44,20 @@ namespace subsystems {
         PID::PID_System turnPID;
         PID::PID_System swingAnglePID;
 
+        // PID Stall & Quick Transition Detection Constants
+        const int MIN_LATERAL_MOVE_POWER = 10;
+        const int MIN_TURN_MOVE_POWER = 20;
+        const int MIN_SWING_MOVE_POWER = 20;
+
+        const int MIN_STALL_TIME = 600;
+        const int MIN_STALL_VELOCITY = 70;
+
+        const int QUICK_TRANSITION_TIME = 40;
+
         // Drive Constants
         const double JOYSTICK_TURN_GAIN = 2.5;
         const int JOYSTICK_DEADZONE = 5;
         const float TRACTION_TURN_MULTIPLIER = 1.75;
-
-        // 
 
         // Todo: Add Odom Object
 
@@ -64,6 +74,7 @@ namespace subsystems {
             void setBrakeMode(pros::motor_brake_mode_e_t brakeMode);
 
             float getAvgEncoderValue();
+            float getAvgMotorVelocity();
             float getAvgHeading();
             double requestAvgIMUHeading();
 

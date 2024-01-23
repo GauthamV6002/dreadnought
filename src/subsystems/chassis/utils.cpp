@@ -15,10 +15,14 @@ namespace subsystems {
     }
 
 
-    // Encoder Utils
+    // Motor/IME Utils
 
     float Chassis::getAvgEncoderValue() {
         return (frontLeft.get_position() + middleLeft.get_position() + backLeft.get_position() + frontRight.get_position() + middleRight.get_position() + backRight.get_position()) / 6.0;
+    }
+
+    float Chassis::getAvgMotorVelocity() { 
+        return (frontLeft.get_actual_velocity() + middleLeft.get_actual_velocity() + backLeft.get_actual_velocity() + frontRight.get_actual_velocity() + middleRight.get_actual_velocity() + backRight.get_actual_velocity()) / 6.0;
     }
 
 

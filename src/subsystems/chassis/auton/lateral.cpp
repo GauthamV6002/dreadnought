@@ -1,3 +1,4 @@
+#include "globals.hpp"
 #include "main.h"
 
 void subsystems::Chassis::moveLateral(int targetDistance, double maxPower, double settleTime, double settleRange, double timeout) {
@@ -11,12 +12,9 @@ void subsystems::Chassis::moveLateral(int targetDistance, double maxPower, doubl
     );
 
     float targetPosition = targetDistance * 46.29961; // dist * 300/2pi*r; which is 300 / (2.75 * 3.14159)
-    //NOTE - Blue motors have 300ticks/rev
-
+    
+    // Stall Detection Timer
     double timeSpentStalled = 0;
-
-    const double MIN_STALL_POWER = 30, MIN_STALL_VELOCITY = 4, MIN_STALL_TIME = 400;
-
 
     while(!(this->drivePID.isSettled())) {
         float error = targetPosition - this->getAvgEncoderValue();
@@ -26,13 +24,20 @@ void subsystems::Chassis::moveLateral(int targetDistance, double maxPower, doubl
         pros::delay(10);
 
         // TODO: Fix Stall Detection
-        // if(power > MIN_STALL_POWER && this->getAvgMotorVelocity() < MIN_STALL_VELOCITY) {
+        // if(power > MIN_LATERAL_STALL_POWER && this->getAvgMotorVelocity() < MIN_STALL_VELOCITY) {
         //     timeSpentStalled += 10;
         // } else {
         //     timeSpentStalled = 0;
         // }
 
-        // if(timeSpentStalled > MIN_STALL_TIME) break;
+        // if(timeSpentStalled > MIN_STALL_TIME) {
+        //     inputSystem.rumbleController("... ...");
+        //     break;
+        // }
+        // pros::screen::print(pros::E_TEXT_MEDIUM, 5, "velo: %f", this->getAvgMotorVelocity());
+
+        // TODO: Create a quick transition system
+
 		
     }
 

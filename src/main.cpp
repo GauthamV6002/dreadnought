@@ -29,6 +29,20 @@ void autonomous() {
 	chassis.moveLateral(40);
 	chassis.turnToHeading(0);
 
+	
+
+	// chassis.moveLateral(-24);
+	// chassis.moveLateral(24);
+
+	// chassis.driveMotors = -127;
+
+	// while(true) {
+	// 	pros::screen::print(TEXT_MEDIUM, 1, "velocity: %f", chassis.backLeft.get_actual_velocity()); 
+	// 	pros::screen::print(TEXT_MEDIUM, 2, "current: %f", chassis.backLeft.get_current_draw()); 
+	// 	pros::screen::print(TEXT_MEDIUM, 3, "over: %f", chassis.backLeft.is_over_current()); 
+	// 	pros::delay(20);
+	// }
+	
 }
 
 void opcontrol() {

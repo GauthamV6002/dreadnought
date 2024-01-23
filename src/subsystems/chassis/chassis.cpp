@@ -20,7 +20,7 @@ namespace subsystems {
         rightMotors ({frontRight, middleRight, backRight}),
         driveMotors ({frontLeft, middleLeft, backLeft, frontRight, middleRight, backRight}), 
         
-        drivePID(0, 0.3, 0.0, 2.225, 250, 75, 50, 2500),
+        drivePID(0, 0.3, 0.0, 2.225, 250, 75, 50, 4000),
         turnPID(0, 3.0, 0.0, 17.5, 100, 7.0, 200.0, 4000),
         swingAnglePID(0, 5.0, 0.0, 28.0, 100, 5, 50, 2000)
         {}

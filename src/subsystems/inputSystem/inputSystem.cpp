@@ -7,6 +7,12 @@ namespace subsystems {
     // Set controller up
     InputSystem::InputSystem(pros::controller_id_e_t controllerID) : master(controllerID) {}
 
+    // Controller Vibration
+    void InputSystem::rumbleController(const char *rumble_pattern) {
+        master.rumble(rumble_pattern);
+    }
+
+
     // Chassis
     int InputSystem::getChassisThrottle() { 
         return master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y); 
