@@ -17,12 +17,34 @@ namespace subsystems {
 
     // Motor/IME Utils
 
+    double Chassis::inchesToCounts(float inches) {
+        // counts = inches * 400/(2.75 * pi)
+        return (inches * 46.29961);
+    }
+    double Chassis::countsToInches(float counts)  {
+        // inches = counts / 400/(2.75 * pi)
+        return (counts / 46.29961);
+    }
+
     float Chassis::getAvgEncoderValue() {
         return (frontLeft.get_position() + middleLeft.get_position() + backLeft.get_position() + frontRight.get_position() + middleRight.get_position() + backRight.get_position()) / 6.0;
     }
 
     float Chassis::getAvgMotorVelocity() { 
         return (frontLeft.get_actual_velocity() + middleLeft.get_actual_velocity() + backLeft.get_actual_velocity() + frontRight.get_actual_velocity() + middleRight.get_actual_velocity() + backRight.get_actual_velocity()) / 6.0;
+    }
+
+
+    // Distance travelled by IMEs for each drive pod, used in odom calculations
+    
+    float Chassis::getLeftDistTravelled() {
+        float imePos = (frontLeft.get_position() + middleLeft.get_position() + backLeft.get_position()) / 3.0;
+        return countsToInches(imePos);
+    }
+
+    float Chassis::getRightDistTravelled() {
+        float imePos = (frontRight.get_position() + middleRight.get_position() + backRight.get_position()) / 3.0;
+        return countsToInches(imePos);
     }
 
 

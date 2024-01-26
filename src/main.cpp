@@ -13,14 +13,22 @@ void competition_initialize() {
 	// autonManager.displaySelection();
 }
 
+
+void my_task_fn(void* param) {
+  std::cout << "Hello" << (char*)param;
+  pros::screen::print(TEXT_MEDIUM, 8, "from task"); 
+  // ...
+}
+
 void initialize() {
 	kicker.resetRotationSensor();
 	chassis.resetIMUs();
+
+	
+
 }
 
-void autonomous() {
-	// autonManager.runAuton(autonManager.getSelectedAuton());
-	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+/*!SECTION
 
 	chassis.moveLateral(24);
 	chassis.swingToHeading(90, subsystems::SWING_LEFT);
@@ -28,21 +36,148 @@ void autonomous() {
 	chassis.turnToHeading(225);
 	chassis.moveLateral(40);
 	chassis.turnToHeading(0);
+*/
+
+void sixBallFromBack() {
+
+	// Intake 1st triball
+	intake.setIntakeIn(127);
+	chassis.moveLateral(36);
+	pros::delay(400);
+
+	// Push alliance triball towards matchload, turn & descore
+	chassis.moveLateral(-36, 60);
+	chassis.swingToHeading(-45, subsystems::SWING_LEFT, 100);
+	wings.openBackWings();
+	pros::delay(200);
+	chassis.moveLateral(-12, 127);
+	chassis.turnToHeading(-140, 80);
+	wings.closeBackWings();
+	pros::delay(200);
+	chassis.turnToHeading(-60, 127);
+	// chassis.swingToHeading(-70, SWING_LEFT);
+
+	// Move fwd, turn, push
+	chassis.moveLateral(-14, 70);
+	chassis.turnToHeading(-90);
+	chassis.ramAndGoBack(500, -127, 12);
+
+	// Turn and push the other one in, turn towards last triball
+	chassis.turnToHeading(90);
+	intake.setIntakeIn(-127);
+	chassis.ramAndGoBack(600, 127, 18);
+	chassis.turnToHeading(15);
+	intake.setIntakeIn(127);
+
+	// Get the close triball, outtake towards goal
+	chassis.moveLateral(50);
+	chassis.turnToHeading(150);
+	intake.setIntakeIn(-127);
+	pros::delay(300);
+
+	// Go fwd, turn towards farthest triball, get it
+	chassis.moveLateral(10);
+	intake.setIntakeIn(127);
+	chassis.turnToHeading(50);
+	chassis.moveLateral(18);
+	pros::delay(300);
+	// chassis.moveLateral(17);
+
+	// Turn and do the BIG push
+	chassis.turnToHeading(180);
+	wings.openFrontWings();
+	pros::delay(200);
+	chassis.ramAndGoBack(1000, 127);
+
+
+}
+
+void sixBallRush() {
+	// Start from corner of tile beside matchload bar, turned 31deg
+
+	float absoluteStart = 31; // Ref angle is straight up
+
+	// Move fwd to get triball, turn, push both
+	wings.flickFrontWings(400);
+	intake.setIntakeIn(127);
+	chassis.moveLateral(61);
+	chassis.swingToHeading(90 + absoluteStart, subsystems::SWING_LEFT);
+	wings.openFrontWings();
+	intake.setIntakeIn(0);
+	chassis.ramAndGoBack(1000, 80, 12);
+
+	// Get 3rd triball, put it in
+	chassis.turnToHeading(absoluteStart + 135);
+	intake.setIntakeIn(127);
+	chassis.moveLateral(29);
+	chassis.moveLateral(-25);
+	
+	chassis.turnToHeading(absoluteStart + 90);
+	chassis.ramAndGoBack(1000, 80, 10);
+	chassis.turnToHeading(absoluteStart);
+
+	// Go back & turn
+	chassis.moveLateral(-51);
+	chassis.turnToHeading(absoluteStart + -90);
+
+		// Intake 1st triball
+	intake.setIntakeIn(127);
+	chassis.moveLateral(36);
+	pros::delay(400);
+
+	// Push alliance triball towards matchload, turn & descore
+	chassis.moveLateral(-36, 60);
+	chassis.swingToHeading(-45, subsystems::SWING_LEFT, 100);
+	wings.openBackWings();
+	pros::delay(200);
+	chassis.moveLateral(-12, 127);
+	chassis.turnToHeading(-140, 80);
+	wings.closeBackWings();
+	pros::delay(200);
+	chassis.turnToHeading(-60, 127);
+	// chassis.swingToHeading(-70, SWING_LEFT);
+
+	// Move fwd, turn, push
+	chassis.moveLateral(-14, 70);
+	chassis.turnToHeading(-90);
+	chassis.ramAndGoBack(500, -127, 12);
+
+	// Turn and push the other one in, turn towards last triball
+	chassis.turnToHeading(90);
+	intake.setIntakeIn(-127);
+	chassis.ramAndGoBack(600, 127, 18);
 
 	
+}
 
-	// chassis.moveLateral(-24);
-	// chassis.moveLateral(24);
+void calibrate() {
+	chassis.moveLateral(24);
+	chassis.swingToHeading(90, subsystems::SWING_LEFT);
+	chassis.moveLateral(24);
+	chassis.turnToHeading(225);
+	chassis.moveLateral(40);
+	chassis.turnToHeading(0);
+}
 
-	// chassis.driveMotors = -127;
+void skills() {
+	// Start - upper left corner of tile to start, beside matchload bar, *intake facing opposing goal & || to wall*
+	chassis.swingToHeading(-60, subsystems::SWING_LEFT, 80);
+	chassis.moveLateral(-24, 100);
+	chassis.turnToHeading(-90);
+	chassis.ramAndGoBack(600, 127, 16);
+	chassis.turnToHeading(15);
 
-	// while(true) {
-	// 	pros::screen::print(TEXT_MEDIUM, 1, "velocity: %f", chassis.backLeft.get_actual_velocity()); 
-	// 	pros::screen::print(TEXT_MEDIUM, 2, "current: %f", chassis.backLeft.get_current_draw()); 
-	// 	pros::screen::print(TEXT_MEDIUM, 3, "over: %f", chassis.backLeft.is_over_current()); 
-	// 	pros::delay(20);
-	// }
-	
+	// kicker.fireNShots(44, 27*1000); // TODO: Tune timeout to how much we need
+
+
+}
+
+
+void autonomous() {
+	// autonManager.runAuton(autonManager.getSelectedAuton());
+	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	// sixBallFromBack();
+	skills();
 }
 
 void opcontrol() {
@@ -59,7 +194,8 @@ void opcontrol() {
 		subsystems::wings.runOpcontrol();
 		subsystems::elevation.runOpcontrol();
 
-		pros::screen::print(TEXT_MEDIUM, 5, "imu: %f", chassis.getAvgHeading()); 
+		pros::screen::print(TEXT_MEDIUM, 5, "imu: %f", chassis.getAvgEncoderValue()); 
+		pros::screen::print(TEXT_MEDIUM, 6, "imu: %f", chassis.getAvgHeading()); 
 
 		pros::delay(10);
 	}

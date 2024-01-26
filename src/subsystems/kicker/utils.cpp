@@ -3,16 +3,32 @@
 
 namespace subsystems {
 
-    // Blocking Function
-    void Kicker::charge() {
-
-    }
-
     void Kicker::resetRotationSensor() {
         kickerRotationSensor.reset_position();
     }
 
-    // TODO: void Kicker::chargeAsync();
+    void Kicker::fireNShots(int numShots, int timeout) {
+
+        int timer = 0, shotsFired = 0;
+        bool justFired = false;
+
+        while(true) {
+            bool kickerFired = chargeSync(); // Usually runs in main opcontrol loop, which is simulated here
+            pros::delay(10);
+            timer += 10;
+            if(timer >= timeout) break;
+            if(shotsFired >= numShots) break;
+
+            // Incremental logic
+            if(!justFired && kickerFired) {
+                shotsFired++;
+                justFired = true;
+            } else if (!kickerFired) {
+                justFired = false;
+            }
+
+        }
+    }
     
 
     void Kicker::fireKicker() {

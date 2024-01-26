@@ -13,7 +13,7 @@ namespace subsystems {
         CHARGED_POSITION_ANGLE(chargedAngle) {
         }
 
-    void Kicker::chargeSync() {
+    bool Kicker::chargeSync() {
         // TODO: Change to PID?
         int sensorProximity = kickerOpticalSensor.get_proximity();
         const int sensorThreshold = 210;
@@ -36,6 +36,10 @@ namespace subsystems {
                 else kickerMotors = fabs(power);
             }
         }
+
+        // Return whether or not the kicker just fired
+        return (sensorProximity > sensorThreshold);
+
     }
 
 

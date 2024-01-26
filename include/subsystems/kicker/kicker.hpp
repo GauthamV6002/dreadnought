@@ -37,9 +37,12 @@ namespace subsystems {
             // Auton
             void charge();
             void chargeAsync(); // Non-blocking
-            void chargeSync(); // Part of the global loop
+            bool chargeSync(); // Part of the global loop; returns true if it fired last cycle
 
             void fireKicker();
+
+            // Skills
+            void fireNShots(int numShots, int timeout = 30*1000);
     };
 }
 

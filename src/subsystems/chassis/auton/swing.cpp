@@ -25,6 +25,9 @@ namespace subsystems {
             float error = targetHeading - this->getAvgHeading(); // TODO: Switch to requestHeading
             float power = this->swingAnglePID.compute(error);
 
+            // Clamp power if maxpower > power
+            if(fabs(power) > fabs(maxPower)) power = utils::sign(power) * maxPower;
+
             if(swingType == SWING_LEFT) {
                 leftMotors = power; // TODO: Add max power
                 rightMotors.brake();
