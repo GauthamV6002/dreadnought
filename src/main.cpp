@@ -7,29 +7,16 @@ using namespace subsystems;
 
 void disabled() {}
 
-
-
 void competition_initialize() {
 	// autonManager.displaySelection();
-}
-
-
-void my_task_fn(void* param) {
-  std::cout << "Hello" << (char*)param;
-  pros::screen::print(TEXT_MEDIUM, 8, "from task"); 
-  // ...
 }
 
 void initialize() {
 	kicker.resetRotationSensor();
 	chassis.resetIMUs();
-
-	
-
 }
 
 /*!SECTION
-
 	chassis.moveLateral(24);
 	chassis.swingToHeading(90, subsystems::SWING_LEFT);
 	chassis.moveLateral(24);
@@ -229,18 +216,41 @@ void skills() {
 	chassis.turnToHeading(-270);
 	chassis.moveLateral(16);
 	wings.openFrontWings();
-	chassis.swingToHeading(-400, subsystems::SWING_RIGHT);
+	chassis.swingToHeading(-380, subsystems::SWING_RIGHT);
 
 	// Turn to the correct angle, drive fwd, turn and score
 	chassis.turnToHeading(-315);
 	chassis.moveLateral(27);
 	chassis.swingToHeading(-405, SWING_RIGHT);
 
+	chassis.moveLateral(12);
+	chassis.swingToHeading(-450, SWING_RIGHT);
+	chassis.ramAndGoBack(800, 127);
 
+	// OPTIONAL - Go in for one more push
+	// TODO
 
+	// Go for climb
+	chassis.turnToHeading(-405);
+	chassis.moveLateral(-28);
+	chassis.turnToHeading(-355);
+	elevation.raiseElevation();
+	chassis.moveLateral(-54);
+	elevation.closeElevation();
 
 }
 
+void closeSideDisrupt() {
+	
+}
+
+void closeSideAWPSafe() {
+	chassis.swingToHeading(-135, subsystems::SWING_RIGHT);
+	chassis.swingToHeading(-45, subsystems::SWING_RIGHT);
+	chassis.moveLateral(-10);
+	chassis.turnToHeading(135);
+	chassis.moveLateral(20);
+}
 
 void autonomous() {
 	// autonManager.runAuton(autonManager.getSelectedAuton());
@@ -255,7 +265,8 @@ void opcontrol() {
 
 	while (true) {
 		// Run Drive
-		subsystems::chassis.arcade(false, true, false);
+		// TODO: Make sure sai prefers joystick curves for driver
+		subsystems::chassis.arcade(true, true, false);
 
 		// Run other Systems
 		subsystems::intake.runOpcontrol();
