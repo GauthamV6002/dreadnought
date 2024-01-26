@@ -196,7 +196,7 @@ void skills() {
 	chassis.moveLateral(44);
 
 	// Turn and do a goofy ahh curved push
-	chassis.turnToHeading(-140);
+	chassis.turnToHeading(-125);
 	wings.openBackWings();
 	chassis.driveMotors = -127; 
 	pros::delay(300);
@@ -207,6 +207,36 @@ void skills() {
 	wings.closeBackWings();
 
 	// Go back and turn and go to the side bruh
+	chassis.moveLateral(6);
+	chassis.turnToHeading(-180);
+	chassis.moveLateral(33);
+	chassis.turnToHeading(-270);
+	chassis.moveLateral(36);
+	wings.openBackWings();
+
+	// Turn and do a goofy ahh curved push
+	chassis.turnToHeading(-225);
+	chassis.leftMotors = -80;
+	chassis.rightMotors = -127;
+	pros::delay(1200);
+	chassis.driveMotors = 0;
+	wings.closeBackWings();
+
+	// GO fwd, go to side, flick triballs out
+	chassis.moveLateral(6);
+	chassis.turnToHeading(-180);
+	chassis.moveLateral(20);
+	chassis.turnToHeading(-270);
+	chassis.moveLateral(16);
+	wings.openFrontWings();
+	chassis.swingToHeading(-400, subsystems::SWING_RIGHT);
+
+	// Turn to the correct angle, drive fwd, turn and score
+	chassis.turnToHeading(-315);
+	chassis.moveLateral(27);
+	chassis.swingToHeading(-405, SWING_RIGHT);
+
+
 
 
 }
