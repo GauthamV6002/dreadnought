@@ -161,13 +161,52 @@ void calibrate() {
 
 void skills() {
 	// Start - upper left corner of tile to start, beside matchload bar, *intake facing opposing goal & || to wall*
-	chassis.swingToHeading(-60, subsystems::SWING_LEFT, 80);
-	chassis.moveLateral(-24, 100);
+	chassis.swingToHeading(-50, subsystems::SWING_LEFT, 80);
+	chassis.moveLateral(-24, 80);
 	chassis.turnToHeading(-90);
-	chassis.ramAndGoBack(600, 127, 16);
-	chassis.turnToHeading(15);
+	chassis.ramAndGoBack(600, -127, 8);
+	chassis.turnToHeading(25);
 
+	// Fire off all shots
+	pros::delay(1000); // TODO: Remove
 	// kicker.fireNShots(44, 27*1000); // TODO: Tune timeout to how much we need
+
+	// Turn and go over to the other side
+	chassis.turnToHeading(-45);
+	chassis.moveLateral(26);
+	chassis.swingToHeading(0, SWING_LEFT);
+	chassis.moveLateral(75);
+
+
+	// Turn, make a push from the side with wings
+	chassis.swingToHeading(45, SWING_LEFT);
+	wings.flickFrontWings(250);
+	chassis.moveLateral(24);
+	chassis.swingToHeading(90, SWING_LEFT);
+	chassis.ramAndGoBack(800, 127, 20);
+	pros::delay(200);
+
+	// Turn and do another push
+	chassis.turnToHeading(-90);
+	chassis.ramAndGoBack(800, -127, 10);
+
+	// Turn & move towards barrier
+	chassis.turnToHeading(-185);
+	// REVIEW - add flick here?
+	chassis.moveLateral(44);
+
+	// Turn and do a goofy ahh curved push
+	chassis.turnToHeading(-140);
+	wings.openBackWings();
+	chassis.driveMotors = -127; 
+	pros::delay(300);
+	chassis.leftMotors = -127;
+	chassis.rightMotors = -80;
+	pros::delay(800);
+	chassis.driveMotors = 0;
+	wings.closeBackWings();
+
+	// Go back and turn and go to the side bruh
 
 
 }
