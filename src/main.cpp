@@ -29,8 +29,8 @@ void sixBallFromBack() {
 
 	// Intake 1st triball
 	intake.setIntakeIn(127);
-	chassis.moveLateral(36);
-	pros::delay(400);
+	chassis.moveLateral(36, 100);
+	pros::delay(500);
 
 	// Push alliance triball towards matchload, turn & descore
 	chassis.moveLateral(-36, 60);
@@ -145,7 +145,7 @@ void calibrate() {
 	chassis.moveLateral(40);
 	chassis.turnToHeading(0);
 }
-
+ 
 void skills() {
 	// Start - upper left corner of tile to start, beside matchload bar, *intake facing opposing goal & || to wall*
 	chassis.swingToHeading(-50, subsystems::SWING_LEFT, 80);
@@ -155,8 +155,11 @@ void skills() {
 	chassis.turnToHeading(25);
 
 	// Fire off all shots
-	pros::delay(1000); // TODO: Remove
-	// kicker.fireNShots(44, 27*1000); // TODO: Tune timeout to how much we need
+	// pros::delay(1000); // TODO: Remove
+	wings.openBackWings();
+	kicker.fireNShots(44, 27*1000); // TODO: Tune timeout to how much we need
+	wings.closeBackWings();
+	pros::delay(200);
 
 	// Turn and go over to the other side
 	chassis.turnToHeading(-45);
@@ -241,22 +244,40 @@ void skills() {
 }
 
 void closeSideDisrupt() {
-	
+	chassis.moveLateral(54);
+	chassis.turnToHeading(90);
+	wings.openFrontWings();
+	chassis.moveLateral(35);
+	wings.closeFrontWings();   
 }
 
 void closeSideAWPSafe() {
-	chassis.swingToHeading(-135, subsystems::SWING_RIGHT);
-	chassis.swingToHeading(-45, subsystems::SWING_RIGHT);
-	chassis.moveLateral(-10);
-	chassis.turnToHeading(135);
-	chassis.moveLateral(20);
+
+	wings.openBackWings();
+	pros::delay(400);
+
+	intake.setIntakeIn(60);
+	pros::delay(400);
+
+	chassis.swingToHeading(-50, subsystems::SWING_RIGHT);
+	chassis.swingToHeading(0, subsystems::SWING_RIGHT);
+	wings.closeBackWings();
+	pros::delay(800);
+
+	// chassis.swingToHeading(-45, subsystems::SWING_RIGHT);
+	chassis.moveLateral(10);
+	chassis.turnToHeading(-45);
+	chassis.moveLateral(30);
+
+	intake.setIntakeIn(-127);
 }
 
 void autonomous() {
 	// autonManager.runAuton(autonManager.getSelectedAuton());
 	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-	// sixBallFromBack();
-	skills();
+	sixBallFromBack();
+	// closeSideAWPSafe();
+	// skills();
 }
 
 void opcontrol() {
@@ -266,7 +287,7 @@ void opcontrol() {
 	while (true) {
 		// Run Drive
 		// TODO: Make sure sai prefers joystick curves for driver
-		subsystems::chassis.arcade(true, true, false);
+		subsystems::chassis.arcade(false, true, false);
 
 		// Run other Systems
 		subsystems::intake.runOpcontrol();
