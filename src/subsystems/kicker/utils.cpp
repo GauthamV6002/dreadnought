@@ -36,5 +36,16 @@ namespace subsystems {
         pros::delay(150);
     }
 
+    void Kicker::returnToHome() { 
+        // Reset Kicker Pos
+        int kickerPos = kicker.kickerRotationSensor.get_position();
+        while (kickerPos > 1000) {
+            kicker.kickerMotors = 80;
+            kickerPos =  kicker.kickerRotationSensor.get_position();
+            pros::delay(10);
+        }
+        kicker.kickerMotors = 0;
+    }
+
     
 }

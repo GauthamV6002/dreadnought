@@ -59,7 +59,7 @@ namespace subsystems {
         } else if (!matchLoadRoutineIsActive) {
             // Kicker is lowered & matchloading gets disabled - run motors until the kicker returns to its home position
             int pos = kickerRotationSensor.get_position();
-            if(pos > 1000) kickerMotors = 80;
+            if(pos > 1000) kickerMotors = 60;
             else kickerMotors = 0;
         }
     }

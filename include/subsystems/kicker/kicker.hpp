@@ -9,6 +9,9 @@
 
 namespace subsystems {
     class Kicker {
+
+        public:
+
         int CHARGED_POSITION_ANGLE;
         pros::Motor leftMotor, rightMotor; // From looking a the back of the robot
         pros::Motor_Group kickerMotors;
@@ -22,7 +25,6 @@ namespace subsystems {
         // Kicker State
         bool matchLoadRoutineIsActive = false;
 
-        public:
             Kicker(int portLeft, int portRight, int opticalSensorPort, int kickerRotationPort, double chargedAngle);
 
             // Teleop
