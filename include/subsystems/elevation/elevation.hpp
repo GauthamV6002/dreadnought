@@ -6,20 +6,25 @@
 
 namespace subsystems {
     class Elevation {
-        pros::ADIDigitalOut elevation;
+        pros::ADIDigitalOut verticalHang;
+        pros::ADIDigitalOut balanceHang;
 
         bool elevationIsRaised = false;
 
         public:
-            Elevation(char ADIport);
+            Elevation(char verticalHangPort, char balanceHangPort);
 
             // Teleop
             void runOpcontrol();
             
-            // Auton
+            // Auton - Vertical Hang
             void raiseElevation();
             void closeElevation();
 
+            // Balance
+            void openBalanceHang();
+
+            // Driver - Vertical Hang
             void toggleElevation();
     };
 }

@@ -5,11 +5,15 @@ namespace subsystems {
 
     // Raise/Lower
     void Elevation::raiseElevation() {
-        elevation.set_value(HIGH);
+        verticalHang.set_value(HIGH);
     }
 
     void Elevation::closeElevation() {
-        elevation.set_value(LOW);
+        verticalHang.set_value(LOW);
+    }
+
+    void Elevation::openBalanceHang() {
+        balanceHang.set_value(HIGH);
     }
 
     // Toggle Elevation

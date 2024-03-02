@@ -9,21 +9,13 @@ void disabled() {}
 
 void competition_initialize() {
 	// autonManager.displaySelection();
+	chassis.resetIMUs();
 }
 
 void initialize() {
 	kicker.resetRotationSensor();
 	chassis.resetIMUs();
 }
-
-/*!SECTION
-	chassis.moveLateral(24);
-	chassis.swingToHeading(90, subsystems::SWING_LEFT);
-	chassis.moveLateral(24);
-	chassis.turnToHeading(225);
-	chassis.moveLateral(40);
-	chassis.turnToHeading(0);
-*/
 
 void sixBallFromBack() {
 
@@ -186,27 +178,27 @@ void calibrate() {
  
 void skills() {
 	// Start - upper left corner of tile to start, beside matchload bar, *intake facing opposing goal & || to wall*
-	intake.setIntakeIn(100);
+	intake.setIntakeIn(-127);
 	chassis.swingToHeading(-50, subsystems::SWING_LEFT, 80);
 	intake.setIntakeIn(0);
 	chassis.moveLateral(-24, 80);
 	chassis.turnToHeading(-90);
 	chassis.ramAndGoBack(600, -127, 8);
-	chassis.turnToHeading(18);
+	chassis.turnToHeading(23);
 
 	// Fire off all shots
 	// pros::delay(1000); // TODO: Remove
 	wings.openBackWings();
-	kicker.fireNShots(44, 32*1000); // TODO: Tune timeout to how much we need
+	kicker.fireNShots(44, 3*1000); // TODO: Tune timeout to how much we need
 	wings.closeBackWings();
 	pros::delay(200);
 
 	kicker.returnToHome();
 
 	// Turn and go over to the other side
-	chassis.turnToHeading(-45);
-	chassis.moveLateral(26);
-	chassis.swingToHeading(0, SWING_LEFT);
+	chassis.turnToHeading(-45, 127, 200);
+	chassis.moveLateral(29);
+	chassis.swingToHeading(3, SWING_LEFT); // Turn a bit extra 
 	chassis.moveLateral(75);
 
 
@@ -215,82 +207,172 @@ void skills() {
 	wings.flickFrontWings(250);
 	chassis.moveLateral(24);
 	chassis.swingToHeading(90, SWING_LEFT);
-	chassis.ramAndGoBack(800, 127, 20);
+	chassis.ramAndGoBack(800, 127, 10);
 	pros::delay(200);
 
-	// Turn and do another push
-	chassis.turnToHeading(-90);
-	chassis.ramAndGoBack(800, -127, 10);
 
 	// Turn & move towards barrier
-	chassis.turnToHeading(-185);
-	// REVIEW - add flick here?
-	chassis.moveLateral(44);
+	chassis.turnToHeading(-5);
+	chassis.moveLateral(-44, 100);
 
-	// Turn and do a goofy ahh curved push
-	chassis.turnToHeading(-125);
-	wings.openBackWings();
-	chassis.driveMotors = -127; 
+	// TODO - add a funnelling push
+
+	// Do a straight push towards the goal, turn to 0 to reset
+	chassis.turnToHeading(60);
+	wings.openFrontWings();
+	chassis.driveMotors = 127;
+	pros::delay(250);
+	chassis.leftMotors = 60;
+	chassis.rightMotors = 127;
+	pros::delay(50);
+	wings.closeFrontWings();
+	pros::delay(400);
+	chassis.driveMotors = 127;
 	pros::delay(300);
-	chassis.leftMotors = -127;
-	chassis.rightMotors = -80;
-	pros::delay(800);
-	chassis.driveMotors = 0;
-	wings.closeBackWings();
+	chassis.turnToHeading(0);
 
-	// Go back and turn and go to the side bruh
-	chassis.moveLateral(6);
-	chassis.turnToHeading(-180);
-	chassis.moveLateral(33);
-	chassis.turnToHeading(-270);
-	chassis.moveLateral(36);
-	wings.openBackWings();
+	// Go back, turn, move to the left, and turn straight
+	chassis.moveLateral(-26, 60);
+	chassis.swingToHeading(-90, SWING_LEFT);
+	chassis.moveLateral(-12, 80);
+	chassis.turnToHeading(0);
 
-	// Turn and do a goofy ahh curved push
-	chassis.turnToHeading(-225);
-	chassis.leftMotors = -80;
-	chassis.rightMotors = -127;
+	// Do a frontal push, come back
+	chassis.driveMotors = 127;
+	pros::delay(1200);
+	chassis.turnToHeading(0); // Reset angle just in case
+	chassis.moveLateral(-32, 100);
+
+	// Go to the side
+	chassis.swingToHeading(-90, SWING_LEFT);
+	chassis.moveLateral(-28);
+
+	// Do a curved push
+	chassis.turnToHeading(-40);
+	wings.openFrontWings();
+	pros::delay(200);
+	chassis.rightMotors = 90;
+	chassis.leftMotors = 127;
 	pros::delay(1200);
 	chassis.driveMotors = 0;
-	wings.closeBackWings();
+	wings.closeFrontWings();
 
-	// GO fwd, go to side, flick triballs out
-	chassis.moveLateral(6);
-	chassis.turnToHeading(-180);
-	chassis.moveLateral(20);
-	chassis.turnToHeading(-270);
-	chassis.moveLateral(16);
+	// Come out of goal, turn towards side
+	chassis.turnToHeading(0);
+	chassis.moveLateral(-19);
+	chassis.turnToHeading(90);
+
+
+	// Drive towards side, align with matchload bar
+	intake.setIntakeIn(-100);
+	chassis.moveLateral(50);
+	chassis.swingToHeading(-45, SWING_RIGHT);
+
+	// Go fwd, push
 	wings.openFrontWings();
-	chassis.swingToHeading(-380, subsystems::SWING_RIGHT);
+	chassis.rightMotors = 127;
+	chassis.leftMotors = 100;
+	pros::delay(300);
+	chassis.driveMotors = 127;
+	pros::delay(200);
+	wings.closeFrontWings();
+	pros::delay(600);
+	chassis.driveMotors = 0;
 
-	// Turn to the correct angle, drive fwd, turn and score
-	chassis.turnToHeading(-315);
-	chassis.moveLateral(27);
-	chassis.swingToHeading(-405, SWING_RIGHT);
+	// Move back, push again
+	chassis.turnToHeading(-90);
+	chassis.moveLateral(-12);
+	chassis.driveMotors = 127;
+	pros::delay(600);
 
-	chassis.moveLateral(12);
-	chassis.swingToHeading(-450, SWING_RIGHT);
-	chassis.ramAndGoBack(800, 127);
-
-	// OPTIONAL - Go in for one more push
-	// TODO
-
-	// Go for climb
-	chassis.turnToHeading(-405);
-	chassis.moveLateral(-28);
-	chassis.turnToHeading(-355);
+	// Come back, algin with wall
+	chassis.moveLateral(-20);
+	chassis.turnToHeading(-25);
+	chassis.moveLateral(-18);
+	
+	
+	// Turn, go for hang
+	chassis.turnToHeading(0);
+	kicker.kickerMotors = 50;
 	elevation.raiseElevation();
-	chassis.moveLateral(-54);
+	chassis.moveLateral(-40, 90);
 	elevation.closeElevation();
+	kicker.returnToHome();
+
+
+
+	
+	// move fwd, turn, hang
+	// chassis.moveLateral(8);
+	// kicker.kickerMotors = 60;
+	// kicker.kickerMotors = 0;
+
+	
+
+	// Open wings to funnel
+	// wings.openFrontWings();
+	// pros::delay(400);
+	// wings.closeFrontWings();
+
+	// Go to do a angled side push
+
+
+
+
+	// // Go back and turn and go to the side bruh
+	// chassis.moveLateral(6);
+	// chassis.turnToHeading(180);
+	// chassis.moveLateral(33);
+	// chassis.turnToHeading(90);
+	// chassis.moveLateral(36);
+	// wings.openBackWings();
+	// pros::delay(500);
+
+
+	// // Turn and do a goofy ahh curved push
+	// chassis.turnToHeading(135);
+	// chassis.leftMotors = -80;
+	// chassis.rightMotors = -127;
+	// pros::delay(1200);
+	// chassis.driveMotors = 0;
+	// wings.closeBackWings();
+
+	// // GO fwd, go to side, flick triballs out
+	// chassis.moveLateral(6);
+	// chassis.turnToHeading(180);
+	// chassis.moveLateral(20);
+	// chassis.turnToHeading(90);
+	// chassis.moveLateral(16);
+	// wings.openFrontWings();
+	// chassis.swingToHeading(-20, subsystems::SWING_RIGHT);
+
+	// // Turn to the correct angle, drive fwd, turn and score
+	// chassis.turnToHeading(45);
+	// wings.closeFrontWings();
+	// chassis.moveLateral(27);
+	// chassis.swingToHeading(-45, SWING_RIGHT);
+
+	// chassis.moveLateral(12);
+	// chassis.swingToHeading(-90, SWING_RIGHT);
+	// chassis.ramAndGoBack(600, 127, 20);
+	// chassis.ramAndGoBack(600, 127, 10);
+
+	// // OPTIONAL - Go in for one more push
+	// // TODO
+
+	// // Go for climb
+	// chassis.turnToHeading(-405);
+	// chassis.moveLateral(-28);
+	// chassis.turnToHeading(-355);
+	// elevation.raiseElevation();
+	// chassis.moveLateral(-54);
+	// elevation.closeElevation();
 }
 
 void disruptAWP() {
-	intake.setIntakeIn(100);
-	wings.openFrontWings();
+	intake.setIntakeIn(127);
 	wings.openBackWings();
-	pros::delay(200);
-	wings.closeFrontWings();
-	pros::delay(300);
+	pros::delay(700);
 	chassis.turnToHeading(-90);
 
 	wings.closeBackWings();
@@ -301,19 +383,23 @@ void disruptAWP() {
 	chassis.turnToHeading(90);
 
 	wings.openFrontWings();
-	pros::delay(200);
+	pros::delay(50);
+	intake.setIntakeIn(-127);
+	pros::delay(250);
 	chassis.moveLateral(30);
 	wings.closeFrontWings();
-	chassis.moveLateral(-2);
+	chassis.moveLateral(-6);
 
-	chassis.turnToHeading(-45);
+	chassis.turnToHeading(-20);
+	wings.openBackWings();
 	chassis.moveLateral(-60);
-	// wings.openBackWings();
-	// pros::delay(300);
-	// chassis.rightMotors = -100;
-	// chassis.leftMotors = -127;
-	// pros::delay(1000);
-	// chassis.driveMotors = 0;
+
+	// Go touch
+	pros::delay(300);
+	chassis.rightMotors = -100;
+	chassis.leftMotors = -127;
+	pros::delay(1000);
+	chassis.driveMotors = 0;
 
 
 }
@@ -329,7 +415,7 @@ void skillsStart() {
 	chassis.moveLateral(-24, 80);
 	chassis.turnToHeading(-90);
 	chassis.ramAndGoBack(600, -127, 8);
-	chassis.turnToHeading(18);
+	chassis.turnToHeading(23);
 
 	wings.openBackWings();
 	kicker.matchLoadRoutineIsActive = true; // TODO: Tune timeout to how much we need
@@ -373,9 +459,9 @@ void closeSideAWPSafe() {
 void autonomous() {
 	// autonManager.runAuton(autonManager.getSelectedAuton());
 	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-	sixBallFromBack();
+	// sixBallFromBack();
 	// closeSideAWPSafe();
-	// skills();
+	skills();
 	// closeSideDisrupt();
 	// disruptAWP();
 	// sixBallRush();
@@ -384,8 +470,8 @@ void autonomous() {
 
 void opcontrol() {
 	
-	// chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-	// skillsStart();
+	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	skillsStart();
 	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 	while (true) {

@@ -12,6 +12,6 @@ namespace subsystems {
     
 
     void Intake::setIntakeIn(int power = 127) {
-        intakeMotor = power;
+        intakeMotor = -power;
     }
 }

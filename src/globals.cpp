@@ -8,7 +8,7 @@ namespace subsystems {
     Intake intake(9, 0, 20);
 
     Wings wings('B', 'C');
-    Elevation elevation('A');
+    Elevation elevation('A', 'D');
 
     Chassis chassis(
         18, 

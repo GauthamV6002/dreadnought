@@ -4,9 +4,10 @@
 
 namespace subsystems {
 
-    Elevation::Elevation(char ADIport) : elevation(ADIport) {}
+    Elevation::Elevation(char verticalHangPort, char balanceHangPort) : verticalHang(verticalHangPort), balanceHang(balanceHangPort) {}
 
     void Elevation::runOpcontrol() {
         if(inputSystem.getElevationNewPress()) toggleElevation();
+        if(inputSystem.getBalanceHangShouldOpen()) openBalanceHang();
     }
 }

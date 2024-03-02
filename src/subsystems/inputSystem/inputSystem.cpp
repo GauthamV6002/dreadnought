@@ -49,8 +49,14 @@ namespace subsystems {
     }
 
     bool InputSystem::getElevationNewPress() {
-        bool a_pressed = master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A);
         bool b_pressed = master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B);
-        return a_pressed && b_pressed;
+        return b_pressed;
     }
+
+    bool InputSystem::getBalanceHangShouldOpen() {
+        bool down_pressed = master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN);
+        return down_pressed;
+    }
+
+
 }

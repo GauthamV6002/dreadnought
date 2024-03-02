@@ -25,10 +25,13 @@ namespace subsystems {
             bool getKickerToggleNewPress();
             bool getManualKickerPressed();
             
-            // Pistons
+            // Wings
             bool getFrontWingsPressed();
             bool getBackWingsPressed();
+
+            // Hang
             bool getElevationNewPress();
+            bool getBalanceHangShouldOpen();
 
     };
 }
