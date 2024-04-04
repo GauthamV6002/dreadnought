@@ -58,5 +58,14 @@ namespace subsystems {
         return down_pressed;
     }
 
+    // Controller Feedback System
+    void InputSystem::runControllerFeedback() {
+        int timestamp = pros::millis();
+
+        // Between the last 10 -> 9.5s, make the controller rumble to indicate its time for hang
+        if(timestamp > 95*1000 && timestamp < 95.5*1000){
+            rumbleController("..");
+        }
+    }
 
 }
