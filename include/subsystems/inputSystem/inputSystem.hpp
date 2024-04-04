@@ -18,7 +18,6 @@ namespace subsystems {
             // Chassis
             int getChassisThrottle();
             int getChassisTurnPower(bool singleStick);
-
             
             // Kicker/Intake
             int getIntakeState(); // 1 is intake inwards, 0 is hold, -1 is intake outwards
@@ -32,6 +31,9 @@ namespace subsystems {
             // Hang
             bool getElevationNewPress();
             bool getBalanceHangShouldOpen();
+
+            // Controller Feedback
+            void runControllerFeedback();
 
     };
 }

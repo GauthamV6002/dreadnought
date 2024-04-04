@@ -476,17 +476,19 @@ void opcontrol() {
 
 	while (true) {
 		// Run Drive
-		// Check if sai prefers joystick curves for driver
 		subsystems::chassis.arcade(false, true, false);
 
-		// Run other Systems
+		// Run Subsystems
 		subsystems::intake.runOpcontrol();
 		subsystems::kicker.runOpcontrol();
 		subsystems::wings.runOpcontrol();
 		subsystems::elevation.runOpcontrol();
 
-		pros::screen::print(TEXT_MEDIUM, 5, "imu: %f", chassis.getAvgEncoderValue()); 
-		pros::screen::print(TEXT_MEDIUM, 6, "imu: %f", chassis.getAvgHeading()); 
+		// Run Controller Feedback System
+		subsystems::inputSystem.runControllerFeedback();
+
+		// pros::screen::print(TEXT_MEDIUM, 5, "imu: %f", chassis.getAvgEncoderValue()); 
+		// pros::screen::print(TEXT_MEDIUM, 6, "imu: %f", chassis.getAvgHeading()); 
 
 		pros::delay(10);
 	}
