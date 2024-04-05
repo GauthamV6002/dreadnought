@@ -4,7 +4,7 @@
 namespace subsystems {
 
     Kicker::Kicker(int portLeft, int portRight, int opticalSensorPort, int kickerRotationPort, double chargedAngle = 5500) : 
-        rightMotor(portRight, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_COUNTS),
+        rightMotor(portRight, pros::E_MOTOR_GEAR_RED, true, pros::E_MOTOR_ENCODER_COUNTS),
         leftMotor(portLeft, pros::E_MOTOR_GEAR_RED, true, pros::E_MOTOR_ENCODER_COUNTS), 
         kickerOpticalSensor(opticalSensorPort),
         kickerRotationSensor(kickerRotationPort),

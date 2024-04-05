@@ -5,11 +5,13 @@
 namespace subsystems {
 
     Intake::Intake(int motorPort, int sensorPort, int intakeDistanceThreshold = 20) :
-        intakeMotor(motorPort, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_COUNTS),
+        intakeMotorLeft(motorPort, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_COUNTS),
+        intakeMotorRight(motorPort, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_COUNTS),
+        intakeMotors({intakeMotorLeft, intakeMotorRight}),
         intakeDistanceSensor(sensorPort),
         INTAKE_DISTANCE_THRESHOLD(intakeDistanceThreshold) 
         /* Constructor Definition */ {
-            intakeMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+            intakeMotors.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
         }
 
 
@@ -23,7 +25,7 @@ namespace subsystems {
         } else {
             // If there is a triball in the intake, run activeHold if enabled
             if(activeHold) setIntakeIn(activeHoldPower);
-            else intakeMotor.brake();
+            else intakeMotors.brake();
         }
 
     }

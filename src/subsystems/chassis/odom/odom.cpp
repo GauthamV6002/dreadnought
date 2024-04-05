@@ -3,7 +3,9 @@
 namespace subsystems {
 
     void Chassis::initializeOdometry() {
-
+        currentX = 0.0;
+        currentY = 0.0;
+        resetIMUs();
     }
 
     void Chassis::updateOdometry() {
@@ -11,8 +13,7 @@ namespace subsystems {
         // Get all IME & IMU Values, calculate left/right offsets
         float verticalIMELeftRaw = getLeftDistTravelled();
         float verticalIMERightRaw = getRightDistTravelled();
-        currentHeading = getAvgHeading();
-
+        currentHeading = requestAvgIMUHeading();
         float deltaVerticalIMELeft = verticalIMELeftRaw - prevLeftIMEDistTravelled;
         float deltaVerticalIMERight = verticalIMERightRaw - prevRightIMEDistTravelled;
         float deltaHeading = currentHeading - prevHeading;
@@ -43,7 +44,9 @@ namespace subsystems {
         currentY += localY * cos(avgHeading);
         currentX += localX * -cos(avgHeading);
         currentY += localX * sin(avgHeading);
+    }
 
+    void Chassis::startOdometryTask() {
 
     }
 }

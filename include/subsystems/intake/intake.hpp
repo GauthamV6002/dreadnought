@@ -7,7 +7,9 @@
 
 namespace subsystems {
     class Intake {
-        pros::Motor intakeMotor;
+        pros::Motor intakeMotorLeft;
+        pros::Motor intakeMotorRight;
+        pros::Motor_Group intakeMotors;
         pros::Distance intakeDistanceSensor;
 
         bool activeHold = false;

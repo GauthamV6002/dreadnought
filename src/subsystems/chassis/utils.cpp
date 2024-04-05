@@ -66,7 +66,7 @@ namespace subsystems {
             else if (rotationFront == PROS_ERR_F && rotationBack != PROS_ERR_F) return (rotationBack);
             else if (rotationBack == PROS_ERR_F && rotationFront != PROS_ERR_F) return (rotationFront);
             else pros::delay(50);
-            pros::screen::print(TEXT_MEDIUM, 5, "what the CRAP"); 
+            pros::screen::print(TEXT_MEDIUM, 5, "IMU requested"); 
         }
     }
 }

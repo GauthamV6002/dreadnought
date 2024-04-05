@@ -470,9 +470,9 @@ void autonomous() {
 
 void opcontrol() {
 	
-	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-	skillsStart();
-	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
+	// chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	// skillsStart();
+	// chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 	while (true) {
 		// Run Drive
@@ -488,7 +488,7 @@ void opcontrol() {
 		subsystems::inputSystem.runControllerFeedback();
 
 		// pros::screen::print(TEXT_MEDIUM, 5, "imu: %f", chassis.getAvgEncoderValue()); 
-		// pros::screen::print(TEXT_MEDIUM, 6, "imu: %f", chassis.getAvgHeading()); 
+		// pros::screen::print(TEXT_MEDIUM, 6, "imu: %f", chassis.getAvgHeading());
 
 		pros::delay(10);
 	}

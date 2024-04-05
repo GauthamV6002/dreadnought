@@ -87,6 +87,7 @@ namespace subsystems {
         float getRightDistTravelled();
 
         // Odometry
+        void startOdometryTask();
         void initializeOdometry();
         void updateOdometry();
 
