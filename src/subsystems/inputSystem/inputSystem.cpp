@@ -39,12 +39,12 @@ namespace subsystems {
     }
     
 
-    // Pistons
+    // Solenoids
     bool InputSystem::getFrontWingsPressed() {
         return master.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
     }
 
-    bool InputSystem::getBackWingsPressed() {
+    bool InputSystem::getIntakeLiftRaised() {
         return master.get_digital(pros::E_CONTROLLER_DIGITAL_L1);
     }
 

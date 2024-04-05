@@ -19,14 +19,17 @@ namespace subsystems {
             int getChassisThrottle();
             int getChassisTurnPower(bool singleStick);
             
-            // Kicker/Intake
+            // Intake
             int getIntakeState(); // 1 is intake inwards, 0 is hold, -1 is intake outwards
+            bool getIntakeLiftRaised();
+
+            // Intake
             bool getKickerToggleNewPress();
             bool getManualKickerPressed();
             
             // Wings
             bool getFrontWingsPressed();
-            bool getBackWingsPressed();
+            
 
             // Hang
             bool getElevationNewPress();

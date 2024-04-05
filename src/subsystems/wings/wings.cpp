@@ -12,8 +12,5 @@ namespace subsystems {
     void Wings::runOpcontrol() {
         if(inputSystem.getFrontWingsPressed()) openFrontWings();
         else closeFrontWings();
-
-        if(inputSystem.getBackWingsPressed()) openBackWings();
-        else closeBackWings();
     }
 }

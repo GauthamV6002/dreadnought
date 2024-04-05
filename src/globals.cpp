@@ -3,12 +3,11 @@
 namespace subsystems {
     InputSystem inputSystem(pros::E_CONTROLLER_MASTER);
     
-    // TODO: Fix Sensor Ports
-    Kicker kicker(10, 2, 5, 19, 5700);
-    Intake intake(9, 0, 20);
+    Kicker kicker(10, 2, 5, 3, 5700);
+    Intake intake(19, 11, 'B', 0, 20);
 
-    Wings wings('B', 'C');
-    Elevation elevation('A', 'D');
+    Wings wings('A', 'G'); // Back Wings not used
+    Elevation elevation('C', 'D');
 
     Chassis chassis(
         18, 
