@@ -17,4 +17,9 @@ namespace subsystems {
         pros::delay(millis);
         closeFrontWings();
     }
+
+    void Wings::openFrontWingsFor(int millis) {
+        openFrontWings();
+        pros::delay(millis);
+    }
 }

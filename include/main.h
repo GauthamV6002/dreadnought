@@ -42,15 +42,20 @@
 
 #include "globals.hpp"
 
+// PID & Utils
 #include "utils/math/math.hpp"
 #include "PID/PID.hpp"
 
+// Subsystems
 #include "subsystems/inputSystem/inputSystem.hpp"
 #include "subsystems/chassis/chassis.hpp"
 #include "subsystems/intake/intake.hpp"
 #include "subsystems/kicker/kicker.hpp"
 #include "subsystems/wings/wings.hpp"
 #include "subsystems/elevation/elevation.hpp"
+
+// autonlib
+#include "autonlib/autonlib.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

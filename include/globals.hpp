@@ -8,9 +8,11 @@
 #include "subsystems/intake/intake.hpp"
 #include "subsystems/kicker/kicker.hpp"
 #include "subsystems/wings/wings.hpp"
+#include "autonlib/autonlib.hpp"
 
 namespace subsystems {
     extern InputSystem inputSystem;
+    extern autonlib::AutonManager autonManager;
     
     extern Kicker kicker;
     extern Intake intake;

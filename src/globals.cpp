@@ -1,6 +1,9 @@
+#include "autonlib/autonlib.hpp"
 #include "main.h" 
 
+
 namespace subsystems {
+    autonlib::AutonManager autonManager('H');
     InputSystem inputSystem(pros::E_CONTROLLER_MASTER);
     
     Kicker kicker(10, 2, 5, 3, 5700);
@@ -19,4 +22,5 @@ namespace subsystems {
         12,
         20
     );
+    
 }

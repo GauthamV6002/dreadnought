@@ -23,6 +23,7 @@ namespace subsystems {
             void closeBackWings();
 
             void flickFrontWings(int millis);
+            void openFrontWingsFor(int millis = 300);
 
     };
 }
