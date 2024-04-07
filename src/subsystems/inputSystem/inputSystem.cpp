@@ -44,7 +44,7 @@ namespace subsystems {
         return master.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
     }
 
-    bool InputSystem::getIntakeLiftRaised() {
+    bool InputSystem::getIntakeLiftLowered() {
         return master.get_digital(pros::E_CONTROLLER_DIGITAL_L1);
     }
 

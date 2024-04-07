@@ -47,8 +47,8 @@ namespace subsystems {
         if(inputSystem.getKickerToggleNewPress()) {
             matchLoadRoutineIsActive = !matchLoadRoutineIsActive;
         }
-        pros::screen::print(pros::E_TEXT_MEDIUM, 1, "kickerToggle: %d", matchLoadRoutineIsActive); 
-        pros::screen::print(pros::E_TEXT_MEDIUM, 3, "rot: %d", kickerRotationSensor.get_position()); 
+        // pros::screen::print(pros::E_TEXT_MEDIUM, 1, "kickerToggle: %d", matchLoadRoutineIsActive); 
+        // pros::screen::print(pros::E_TEXT_MEDIUM, 3, "rot: %d", kickerRotationSensor.get_position()); 
 
         bool manualKickerPressed = inputSystem.getManualKickerPressed();
 

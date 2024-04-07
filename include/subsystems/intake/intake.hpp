@@ -19,7 +19,7 @@ namespace subsystems {
 
         int INTAKE_DISTANCE_THRESHOLD = 20;
 
-        bool intakeIsRaised = false;
+        bool intakeIsRaised = true;
 
         public:
             Intake(int leftMotorPort, int rightMotorPort, char intakeLiftPort, int sensorPort, int intakeDistanceThreshold);

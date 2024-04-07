@@ -21,7 +21,7 @@ namespace subsystems {
             
             // Intake
             int getIntakeState(); // 1 is intake inwards, 0 is hold, -1 is intake outwards
-            bool getIntakeLiftRaised();
+            bool getIntakeLiftLowered();
 
             // Intake
             bool getKickerToggleNewPress();
