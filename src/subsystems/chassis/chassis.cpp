@@ -23,7 +23,8 @@ namespace subsystems {
         
         drivePID(0, 2.0, 0.0, 10.0, 250, 200, 40, 2000),
         turnPID(0, 3.0, 0.0, 22.5, 100, 7.0, 50.0, 1000),
-        swingAnglePID(0, 5.3, 0.0, 45.0, 100, 5, 50, 2000)
+        swingAnglePID(0, 5.3, 0.0, 45.0, 100, 5, 50, 2000),
+        odomMutex()
         {}
 
     

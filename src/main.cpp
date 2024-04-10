@@ -21,14 +21,16 @@ void initialize() {
  
 void autonomous() {
 	// autonManager.runAuton(autonManager.getSelectedAuton());
-	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
+	
+
 }
 
 void opcontrol() {
 
 	while (true) {
 		// Run Drive
-		subsystems::chassis.arcade(false, true, false);
+		subsystems::chassis.arcade(true, true, false);
 
 		// Run Subsystems
 		subsystems::intake.runOpcontrol();

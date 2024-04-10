@@ -18,18 +18,17 @@ namespace subsystems {
             DECREASE && FWD => RIGHT(+)
             DECREASE && BWD => LEFT(-)
         */
-        bool headingIncreasing = (this->getAvgHeading() < targetHeading);
-        pros::screen::print(TEXT_MEDIUM, 1, "headingIncreasing: %d", headingIncreasing); 
+        bool headingIncreasing = (this->requestAvgIMUHeading() < targetHeading);
 
         while(!(this->swingAnglePID.isSettled())) {
-            float error = targetHeading - this->getAvgHeading(); // TODO: Switch to requestHeading
+            float error = targetHeading - this->requestAvgIMUHeading();
             float power = this->swingAnglePID.compute(error);
 
             // Clamp power if maxpower > power
             if(fabs(power) > fabs(maxPower)) power = utils::sign(power) * maxPower;
 
             if(swingType == SWING_LEFT) {
-                leftMotors = power; // TODO: Add max power
+                leftMotors = power;
                 rightMotors.brake();
             }
             else if (swingType == SWING_RIGHT) {

@@ -27,21 +27,17 @@ void subsystems::Chassis::moveLateral(int targetDistance, double maxPower, doubl
         pros::delay(10);
 
         // TODO: Check if this aworks
-        if(power > MIN_LATERAL_MOVE_POWER && this->getAvgMotorVelocity() < MIN_STALL_VELOCITY) {
-            timeSpentStalled += 10;
-        } else {
-            timeSpentStalled = 0;
-        }
+        // if(power > MIN_LATERAL_MOVE_POWER && this->getAvgMotorVelocity() < MIN_STALL_VELOCITY) {
+        //     timeSpentStalled += 10;
+        // } else {
+        //     timeSpentStalled = 0;
+        // }
 
-        if(timeSpentStalled > MIN_STALL_TIME) {
-            inputSystem.rumbleController("... ...");
-            break;
-        }
+        // if(timeSpentStalled > MIN_STALL_TIME) {
+        //     inputSystem.rumbleController("... ...");
+        //     break;
+        // }
         pros::screen::print(pros::E_TEXT_MEDIUM, 5, "velo: %f", this->getAvgMotorVelocity());
-
-        // TODO: Create a quick transition system
-
-		
     }
 
     driveMotors.brake();

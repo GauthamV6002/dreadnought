@@ -1,6 +1,7 @@
 #ifndef __AUTON_LIB
 #define __AUTON_LIB
 
+#include "subsystems/chassis/chassis.hpp"
 #include <functional>
 #include <string>
 
@@ -32,8 +33,8 @@ namespace autonlib {
             // Routine Constructor takes a driveRoute function as a callback
             Routine(std::string name, float startX, float startY, float startHeading, Callback driveRoute);
 
-            void setupRoutine();
-            void runRoutine();
+            void setupRoutine(subsystems::Chassis, bool smartStartEnabled = true);
+            void runRoutine(subsystems::Chassis chassis, bool smartStartEnabled);
     };
 
     class AutonManager {
@@ -46,6 +47,10 @@ namespace autonlib {
             std::string getSelectedRoutine();
 
             void displaySelectionOnBrain();
+
+            // Initialize Routes
+            void initCloseSideRoutines();
+            void initFarSideRoutines();
 
         private:
             char limitSwitchPort;

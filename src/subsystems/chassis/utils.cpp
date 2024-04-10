@@ -69,4 +69,12 @@ namespace subsystems {
             pros::screen::print(TEXT_MEDIUM, 5, "IMU requested"); 
         }
     }
+
+    void Chassis::enableOdometry() {
+        odomEnabled = true;
+    }
+
+    void Chassis::disableOdometry() {
+        odomEnabled = false;
+    }
 }

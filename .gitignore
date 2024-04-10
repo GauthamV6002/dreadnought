@@ -2,6 +2,9 @@
 *.o
 *.obj
 
+readme.md
+workingodom.md
+
 # Executables
 *.bin
 *.elf

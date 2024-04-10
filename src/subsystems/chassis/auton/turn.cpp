@@ -11,7 +11,7 @@ namespace subsystems {
         );
 
         while(!(this->turnPID.isSettled())) {
-            float error = targetHeading - this->getAvgHeading(); // TODO: Switch to requestHeading
+            float error = targetHeading - this->requestAvgIMUHeading(); // TODO: Switch to requestHeading
             float power = this->turnPID.compute(error);
 
             leftMotors = (fabs(power) > fabs(maxPower)) ? (fabs(maxPower) * utils::sign(power)) : power;
@@ -24,8 +24,8 @@ namespace subsystems {
         this->turnPID.resetSystem();
     }
 
-    // Relative turns are just absolute turns from the current position, fetched with getAvgHeading()
+    // Relative turns are just absolute turns from the current position, fetched with requestAvgIMUHeading()
     void Chassis::turnToAngleRelative(double targetAngle, double maxPower, double settleTime, double settleRange, double timeout) {
-        this->turnToHeading(getAvgHeading() + targetAngle, maxPower, settleTime, settleRange, timeout);
+        this->turnToHeading(requestAvgIMUHeading() + targetAngle, maxPower, settleTime, settleRange, timeout);
     }
 }

@@ -45,6 +45,8 @@ namespace subsystems {
         PID::PID_System turnPID;
         PID::PID_System swingAnglePID;
 
+        float imuOffset = 0;
+
         /* SECTION - STALL DETECTION CONSTANTS */
         const int MIN_LATERAL_MOVE_POWER = 10;
         const int MIN_TURN_MOVE_POWER = 20;
@@ -104,15 +106,25 @@ namespace subsystems {
         double prevX = 0.0, prevY = 0.0, prevHeading = 0.0;
         double prevLeftIMEDistTravelled = 0.0, prevRightIMEDistTravelled = 0.0;
 
-        void startOdometryTask();
+        pros::Mutex odomMutex;
+        bool odomEnabled = false;
+
+        void enableOdometry();
+        void disableOdometry();
         void initializeOdometry();
+
+        void startOdometryTask();
         void updateOdometry(void* param);
         static void staticUpdateOdometry(void* param);
 
         // Movement Using Odom
-        void moveToPoint(double x, double y, double heading, double maxLateralPower, double maxTurnPower, double lateralSettleTime, double lateralSettleRange);
-        void turnTowardsPoint(double x, double y, double maxPower = 127, double settleTime = -1, double settleRange  = -1, double timeout  = -1);
-        
+        void moveToPoint(double x, double y, double maxTurnPower = 127, bool turnReversed = false, double maxLateralPower = -1, double lateralSettleTime = -1, double lateralSettleRange = -1);
+        void moveToPointBackwards(double x, double y, double maxTurnPower = 127, bool turnReversed = false, double maxLateralPower = -1, double lateralSettleTime = -1, double lateralSettleRange = -1);
+        void turnBacksideTowardsPoint(double x, double y, double maxPower = 127, bool reverse = false, double settleTime = -1, double settleRange  = -1, double timeout  = -1);
+        void turnTowardsPoint(double x, double y, double maxPower = 127, bool reverse = false, double settleTime = -1, double settleRange  = -1, double timeout  = -1);
+
+        void setPose(double x, double y, double heading);
+        void setPose(double x, double y);
 
         
         /* SECTION - MACROS */
