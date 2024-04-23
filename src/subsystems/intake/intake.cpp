@@ -27,10 +27,10 @@ namespace subsystems {
             // If there is a triball in the intake, run activeHold if enabled
             if(activeHold) setIntakeIn(activeHoldPower);
             else intakeMotors.brake();
+        }
 
             if(inputSystem.getIntakeLiftLowered()) lowerIntake();
             else raiseIntake();
-        }
 
     }
 }

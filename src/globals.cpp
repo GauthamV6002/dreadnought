@@ -6,7 +6,7 @@ namespace subsystems {
     autonlib::AutonManager autonManager('H');
     InputSystem inputSystem(pros::E_CONTROLLER_MASTER);
     
-    Kicker kicker(10, 2, 5, 3, 5700);
+    Kicker kicker(4, 2, 5, 3, 5700);
     Intake intake(19, 11, 'B', 0, 20);
 
     Wings wings('A', 'G'); // Back Wings not used
@@ -14,7 +14,7 @@ namespace subsystems {
 
     Chassis chassis(
         18, 
-        17, 
+        10, 
         16,
         13, 
         14, 

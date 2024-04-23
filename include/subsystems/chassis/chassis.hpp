@@ -86,18 +86,14 @@ namespace subsystems {
 
         /* SECTION - PID MOVEMENT */
         // Simple PID Movement Functions
-        void moveLateral(int targetDistance, double maxPower = 127, double settleTime  = -1, double settleRange  = -1, double timeout = -1);
-        void turnToAngleRelative(double targetAngle, double maxPower = 127, double settleTime = -1, double settleRange  = -1, double timeout  = -1);
-        void swingToAngleRelative(double targetAngle, E_SWING_TYPE swingType, double maxPower= 127, double settleTime = -1, double settleRange = -1, double timeout = -1);
+        void moveLateral(int targetDistance, double maxPower = 127, float chainNextGain = -1, double settleTime  = -1, double settleRange  = -1, double timeout = -1);
 
         // Global Heading Based Turns
-        void turnToHeading(double targetHeading, double maxPower = 127, double settleTime = -1, double settleRange  = -1, double timeout  = -1);
-        void swingToHeading(double targetHeading, E_SWING_TYPE swingType, double maxPower = 127, double settleTime = -1, double settleRange = -1, double timeout = -1);
+        void turnToHeading(double targetHeading, double maxPower = 127, float chainNextGain = -1, double settleTime = -1, double settleRange  = -1, double timeout  = -1);
+        void swingToHeading(double targetHeading, E_SWING_TYPE swingType, double maxPower = 127, float chainNextGain = -1, double settleTime = -1, double settleRange = -1, double timeout = -1);
 
         // Arc Turns
-        void arcTurnToAngle(double targetAngle, double radius, E_SWING_TYPE swingType, double maxPower, double settleTime, double settleRange, double timeout);
-        void arcTurnToHeading(double targetHeading, double radius, E_SWING_TYPE swingType, double maxPower, double settleTime, double settleRange, double timeout);
-        void arcTurnDistance(double distance, double radius, E_SWING_TYPE swingType, double maxPower, double settleTime, double settleRange, double timeout);
+        void arcTurnToHeading(double targetHeading, double radius, E_SWING_TYPE swingType, double maxPower, float chainNextGain = -1, double settleTime = -1, double settleRange = -1, double timeout = -1);
 
 
         /* SECTION - ODOMETRY */

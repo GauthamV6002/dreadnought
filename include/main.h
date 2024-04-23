@@ -35,6 +35,7 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
+#include "pros/apix.h"
 
 /**
  * You should add more #includes here
@@ -54,8 +55,9 @@
 #include "subsystems/wings/wings.hpp"
 #include "subsystems/elevation/elevation.hpp"
 
-// autonlib
+// autonlib & display
 #include "autonlib/autonlib.hpp"
+#include "displaylib/display.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

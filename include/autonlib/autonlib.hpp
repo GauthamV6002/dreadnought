@@ -19,6 +19,11 @@ namespace autonlib {
         DOWN = 180
     };
 
+    enum ROUTINE_TYPE {
+        CLOSE_SIDE = 1,
+        FAR_SIDE = 2,
+        SKILLS = 3
+    };
 
     class Routine {
         public:
@@ -28,10 +33,14 @@ namespace autonlib {
 
             // Other Info about the Routine
             float startX = 0.0, startY = 0.0, startHeading = 0.0;
-            std::string routineName = "default";
+            std::string routineName = "[default]";
+
+            ROUTINE_TYPE routineType;
+
+            std::string selectedAuton = "None";
 
             // Routine Constructor takes a driveRoute function as a callback
-            Routine(std::string name, float startX, float startY, float startHeading, Callback driveRoute);
+            Routine(std::string name, float startX, float startY, float startHeading, Callback driveRoute, ROUTINE_TYPE type);
 
             void setupRoutine(subsystems::Chassis, bool smartStartEnabled = true);
             void runRoutine(subsystems::Chassis chassis, bool smartStartEnabled);
@@ -46,19 +55,22 @@ namespace autonlib {
             void runRoutine(std::string routineName);
             std::string getSelectedRoutine();
 
-            void displaySelectionOnBrain();
+            void displaySelector();
+            void smartStartInit();
 
             // Initialize Routes
             void initCloseSideRoutines();
             void initFarSideRoutines();
+            void initSkillsRoutines();
+
+            // State
+            int selectedRoutine = 0;
 
         private:
             char limitSwitchPort;
             std::vector<Routine> routines;
             std::vector<std::string> routineNames;
     };
-
-    extern AutonManager auto_manage;
 }
 
 #endif // __AUTON_LIB

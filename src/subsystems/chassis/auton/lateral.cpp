@@ -2,7 +2,7 @@
 #include "main.h"
 #include "subsystems/chassis/chassis.hpp"
 
-void subsystems::Chassis::moveLateral(int targetDistance, double maxPower, double settleTime, double settleRange, double timeout) {
+void subsystems::Chassis::moveLateral(int targetDistance, double maxPower, float chainNextGain, double settleTime, double settleRange, double timeout) {
 
     // chassis.tarePosition()
     drivePID.setStopConditionConstants(
@@ -16,28 +16,17 @@ void subsystems::Chassis::moveLateral(int targetDistance, double maxPower, doubl
     // NOTE - There are 300ticks/rev for motors, 400ticks/wheelRevolution for OUR gear ratio!
     float targetPosition = targetDistance * 46.29961 + startPosition; // dist * 400/2pi*r; which is 400 / (2.75 * 3.14159)
     
-    // Stall Detection Timer
-    double timeSpentStalled = 0;
-
     while(!(this->drivePID.isSettled())) {
         float error = targetPosition - this->getAvgEncoderValue();
         float power = this->drivePID.compute(error);
 
+        // Motion Chaining
+        // if(chainNextGain != -1) power *= chainNextGain;
+        // if(setPoint)
+
         driveMotors = (fabs(power) > fabs(maxPower)) ? (fabs(maxPower) * utils::sign(power)) : power;
         pros::delay(10);
 
-        // TODO: Check if this aworks
-        // if(power > MIN_LATERAL_MOVE_POWER && this->getAvgMotorVelocity() < MIN_STALL_VELOCITY) {
-        //     timeSpentStalled += 10;
-        // } else {
-        //     timeSpentStalled = 0;
-        // }
-
-        // if(timeSpentStalled > MIN_STALL_TIME) {
-        //     inputSystem.rumbleController("... ...");
-        //     break;
-        // }
-        pros::screen::print(pros::E_TEXT_MEDIUM, 5, "velo: %f", this->getAvgMotorVelocity());
     }
 
     driveMotors.brake();

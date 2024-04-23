@@ -1,4 +1,6 @@
 #include "main.h"
+#include "display/lv_core/lv_obj.h"
+#include "displaylib/display.hpp"
 #include "globals.hpp"
 #include "pros/motors.h"
 #include "subsystems/chassis/chassis.hpp"
@@ -6,17 +8,20 @@
 
 using namespace subsystems;
 
-
 void disabled() {}
 
 void competition_initialize() {
-	// autonManager.displaySelection();
-	chassis.resetIMUs();
+	
+	// Smart Start system must be started lined up w/ the wall; is blocking
+	// autonManager.smartStartInit(); 
+
+	// Display Auton Selector, handles itself
+	// autonManager.displaySelector();
 }
 
 void initialize() {
-	chassis.startOdometryTask();
-	kicker.resetRotationSensor();
+	// autonManager.smartStartInit();
+	autonManager.displaySelector();
 }
  
 void autonomous() {

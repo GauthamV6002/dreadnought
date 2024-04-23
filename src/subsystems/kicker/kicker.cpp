@@ -14,15 +14,11 @@ namespace subsystems {
         }
 
     bool Kicker::chargeSync() {
-        // TODO: Change to PID?
         int sensorProximity = kickerOpticalSensor.get_proximity();
         const int sensorThreshold = 210;
 
         float error = CHARGED_POSITION_ANGLE - kickerRotationSensor.get_position();
         float power = kickerPID.compute(error);
-
-        pros::screen::print(pros::E_TEXT_MEDIUM, 6, "error: %f", error); 
-        pros::screen::print(pros::E_TEXT_MEDIUM, 7, "power: %f", power); 
 
 
         if(sensorProximity > sensorThreshold) {
